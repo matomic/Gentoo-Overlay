@@ -19,6 +19,7 @@ SRC_URI="http://sourceforge.net/projects/vim-latex/files/snapshots/${MY_PF}.tar.
 # compilation:
 #S="${WORKDIR}"
 S="${WORKDIR}/${MY_PF}"
+DOCS=${S}/doc
 
 RDEPEND="virtual/latex-base"
 
@@ -28,15 +29,21 @@ src_unpack() {
 	unpack ${A}
 
 	# Don't need to install these
-	rm ${S}/Makefile*
-	rm ${S}/doc/Makefile*
+	rm ${S}/Makefile* ${S}/doc/Makefile*
 }
 
 src_install() {
 	into /usr
 
-	dobin ${S}/ltags
-	rm ${S}/ltags
+	# install README and HTMLs to indoc
+	dodoc ${DOCS}/README*
+	dohtml -A xml -A xsl -r ${DOCS}
+
+	# a dumb way to leave the .txt file for vim doc: 
+	rm -rf ${S}/Makefile* ${DOCS}/*xml ${DOCS}/*xsl ${DOCS}/*css ${DOCS}/*htm{,l} ${DOCS}/latex-suite ${DOCS}/latex-suite-quickstart README*
+
+	dobin ${S}/ltags ${S}/latextags
+	rm ${S}/ltags ${S}/latextags
 	vim-plugin_src_install
 }
 
