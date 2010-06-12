@@ -3,22 +3,26 @@
 # $Header: /var/cvsroot/gentoo-x86/dev-python/pyPdf/pyPdf-1.12.ebuild,v 1.7 2010/05/18 13:02:17 hwoarang Exp $
 
 EAPI="2"
-SUPPORT_PYTHON_ABIS="1"
 
 EGIT_REPO_URI="git://github.com/mfenniak/${PN}.git"
 EGIT_BRANCH="py3"
-inherit distutils git
 
 DESCRIPTION="Python library to work with pdf files"
 HOMEPAGE="http://pybrary.net/pyPdf/ http://pypi.python.org/pypi/pyPdf"
-#SRC_URI="http://pybrary.net/${PN}/${P}.tar.gz"
 SRC_URI=""
 
 LICENSE="BSD-2"
 SLOT="0"
 KEYWORDS="amd64 x86"
-IUSE=""
+IUSE="python3"
 
 DEPEND=""
 RDEPEND=""
-RESTRICT_PYTHON_ABIS="3.*"
+if use python3; then
+	SUPPORT_PYTHON_ABIS="2"
+else
+	SUPPORT_PYTHON_ABIS="1"
+	RESTRICT_PYTHON_ABIS="3.*"
+fi
+
+inherit distutils git
