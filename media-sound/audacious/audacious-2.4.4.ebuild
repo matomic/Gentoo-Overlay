@@ -29,7 +29,7 @@ DEPEND="${RDEPEND}
 	nls? ( dev-util/intltool )
 	chardet? ( app-i18n/libguess )"
 
-PDEPEND=">=media-plugins/audacious-plugins-2.4.3"
+PDEPEND=">=media-plugins/audacious-plugins-2.4.4"
 
 src_compile() {
 	# D-Bus is a mandatory dependency, remote control,
@@ -50,7 +50,7 @@ src_compile() {
 }
 
 src_install() {
-	make DESTDIR="${D}" install || die
+	emake DESTDIR="${D}" install || die
 	dodoc AUTHORS NEWS README
 
 	# Gentoo_ice skin installation; bug #109772
