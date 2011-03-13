@@ -1,13 +1,13 @@
 # Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-vim/vim-latex/vim-latex-1.8.23.20101027.ebuild,v 1.1 2011/01/24 06:32:55 radhermit Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-vim/vim-latex/vim-latex-1.8.23.20110214.ebuild,v 1.1 2011/03/04 04:27:06 radhermit Exp $
 
 EAPI=3
 
 inherit vim-plugin versionator
 
-MY_REV="1112"
-MY_P="${PN}-$( replace_version_separator 3 - )-r${MY_REV}"
+MY_REV="1049-git089726a"
+MY_P="${PN}-$( replace_version_separator 3 - ).${MY_REV}"
 
 DESCRIPTION="vim plugin: a comprehensive set of tools to view, edit and compile LaTeX documents"
 HOMEPAGE="http://vim-latex.sourceforge.net/"
@@ -26,6 +26,8 @@ VIM_PLUGIN_HELPFILES="latex-suite.txt latex-suite-quickstart.txt latexhelp.txt i
 src_prepare() {
 	# The makefiles do weird stuff, including running the svn command
 	rm Makefile Makefile.in || die "rm Makefile Makefile.in failed"
+
+	# Patching my own keymaps:
 	epatch "${FILESDIR}/vim-latex-greek-IMAP.patch"
 }
 
