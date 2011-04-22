@@ -1,0 +1,23 @@
+diff -urN moonlight-3.99.0.2/generators/Generator.cs moonlight-3.99.0.2-patched/generators/Generator.cs
+--- moonlight-3.99.0.2/generators/Generator.cs	2011-02-25 01:43:44.000000000 +1030
++++ moonlight-3.99.0.2-patched/generators/Generator.cs	2011-03-21 10:25:39.839637001 +1030
+@@ -2367,8 +2367,7 @@
+ 		impl.AppendLine ("#include <stdio.h>");
+ 		impl.AppendLine ("#include <stdlib.h>");
+ 		impl.AppendLine ();
+-		if (!dir.Contains ("plugin"))
+-			impl.AppendLine ("#include \"factory.h\"");
++		impl.AppendLine ("#include \"factory.h\"");
+ 		impl.AppendLine ();
+ 		headers.Sort ();
+ 		foreach (string h in headers) {
+diff -urN moonlight-3.99.0.2/plugin/lunar-launcher/Makefile.am moonlight-3.99.0.2-patched/plugin/lunar-launcher/Makefile.am
+--- moonlight-3.99.0.2/plugin/lunar-launcher/Makefile.am	2011-02-25 01:43:44.000000000 +1030
++++ moonlight-3.99.0.2-patched/plugin/lunar-launcher/Makefile.am	2011-03-21 10:26:04.085637004 +1030
+@@ -1,5 +1,5 @@
+ bin_PROGRAMS = lunar-launcher
+-bindir = $(DESTDIR)$(pkglibdir)/plugin/
++bindir = $(pkglibdir)/plugin/
+ 
+ INCLUDES = $(LUNAR_LAUNCHER_CFLAGS) \
+ 	-DG_LOG_DOMAIN=\"LunarLauncher\" \
