@@ -31,7 +31,7 @@ RDEPEND="${CDEPEND}
 	dev-python/gconf-python
 	dev-python/gst-python:0.10
 	>=dev-python/pywebkitgtk-1.1.5
-
+	dev-python/pycurl
 	>=net-libs/rb_libtorrent-0.14.1[python]
 
 	media-plugins/gst-plugins-meta:0.10
@@ -42,32 +42,18 @@ RDEPEND="${CDEPEND}
 
 DEPEND="${CDEPEND}"
 
-S="${WORKDIR}/${P}/platform/gtk-x11"
-
-src_prepare() {
-	# fix debug mode
-	epatch "${FILESDIR}/${PN}-3.0.2-fix-debug.patch"
-
-	# disable autoupdate
-	sed -i -e "/autoupdate/d" ../../portable/startup.py || die "sed failed"
-
-	# be sure libnotify is never used if disabled
-	if ! use libnotify; then
-		sed -i -e "s:import pynotify:import pynotifyisdisabled:" \
-			../../portable/frontends/widgets/gtk/trayicon.py \
-			plat/frontends/widgets/application.py || die "sed failed"
-	fi
-}
+S="${WORKDIR}/${P}/linux"
 
 src_install() {
+	cd ${S}	
+	
 	# doing the mv now otherwise, distutils_src_install will install it
 	mv README README.gtk || die "mv failed"
 
 	distutils_src_install
 
 	# installing docs
-	dodoc README.gtk ../../{ADOPTERS,CREDITS,README} || die "dodoc failed"
-	newdoc ../../portable/frontends/cli/README README.cli || die "dodoc failed"
+	dodoc README.gtk ../{ADOPTERS,CREDITS,README} || die "dodoc failed"
 }
 
 pkg_preinst() {
@@ -93,3 +79,4 @@ pkg_postrm() {
 	distutils_pkg_postrm
 	gnome2_icon_cache_update
 }
+
