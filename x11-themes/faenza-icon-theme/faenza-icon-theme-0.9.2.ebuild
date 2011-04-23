@@ -6,7 +6,7 @@ inherit gnome2-utils
 
 DESCRIPTION="A scalable icon theme called Faenza"
 HOMEPAGE="http://tiheum.deviantart.com/art/Faenza-Icons-173323228"
-SRC_URI="mirror://gentoo/faenza_icons_by_tiheum-d2v6x24.zip"
+SRC_URI="http://faenza-icon-theme.googlecode.com/files/faenza-icon-theme_0.9.2.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
@@ -20,19 +20,9 @@ RESTRICT="binchecks strip"
 
 S=${WORKDIR}
 
-src_unpack() {
-	unpack ${A}
-	unpack ./Faenza.tar.gz
-	unpack ./Faenza-Dark.tar.gz
-	unpack ./emesene-faenza-theme.tar.gz
-}
-
 src_install() {
 	insinto /usr/share/icons
-	doins -r Faenza{,-Dark} || die
-
-	insinto /usr/share/themes
-	doins -r emesene/themes/Faenza{,-Dark} || die
+	doins -r Faenza{,-Dark,-Darker,-Darkest} || die
 
 	dodoc AUTHORS ChangeLog README
 }

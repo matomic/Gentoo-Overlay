@@ -10,7 +10,9 @@ MYNAME="equinox"
 
 DESCRIPTION="Equinox GTK Engine and themes"
 HOMEPAGE="http://www.gnome-look.org/content/show.php?content=${APPID}"
-SRC_URI="http://gnome-look.org/CONTENT/content-files/${APPID}-${MYNAME}-${PV}.tar.bz2"
+SRC_URI="http://gnome-look.org/CONTENT/content-files/${APPID}-${MYNAME}-${PV}.tar.gz
+http://gnome-look.org/CONTENT/content-files/140448-${MYNAME}-themes-1.30.tar.gz
+http://gnome-look.org/CONTENT/content-files/140449-${MYNAME}-themes-${PV}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -26,9 +28,8 @@ S=${WORKDIR}/${MYNAME}-${PV}
 src_unpack() {
 	unpack ${A}
 	cd "${WORKDIR}"
-	tar -xzf ${MYNAME}-gtk-engine.tar.gz || die "unpack failed"
 	mkdir themes
-	tar -xzf ${MYNAME}-themes.tar.gz -C themes || die "unpack failed"
+	mv Equinox* themes
 }
 
 src_configure() {
