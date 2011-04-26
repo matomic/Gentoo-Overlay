@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI="3"
 PYTHON_DEPEND="2:2.5"
 
 inherit eutils fdo-mime gnome2-utils python distutils
@@ -45,8 +45,8 @@ DEPEND="${CDEPEND}"
 S="${WORKDIR}/${P}/linux"
 
 src_install() {
-	cd ${S}	
-	
+	cd ${S}
+
 	# doing the mv now otherwise, distutils_src_install will install it
 	mv README README.gtk || die "mv failed"
 
