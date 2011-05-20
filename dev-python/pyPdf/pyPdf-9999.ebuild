@@ -13,7 +13,7 @@ SRC_URI=""
 
 LICENSE="BSD-2"
 SLOT="0"
-KEYWORDS="amd64 x86"
+KEYWORDS=""
 IUSE="python3"
 
 DEPEND=""
