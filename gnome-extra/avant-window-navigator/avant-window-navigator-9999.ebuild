@@ -50,6 +50,11 @@ DEPEND="${COMMON_DEPEND}
 
 DOCS="AUTHORS ChangeLog NEWS README TODO"
 
+pkg_setup() {
+	python_set_active_version 2
+	python_pkg_setup
+}
+
 src_unpack() {
 	bzr_src_unpack
 }
@@ -73,6 +78,11 @@ src_configure() {
 		--enable-extra-version=-gentoo-desktop-effects
 }
 
+src_install() {
+	gnome2_src_install
+	python_convert_shebangs -r 2 "${D}"
+}
+
 pkg_postinst() {
 	gnome2_pkg_postinst
 
@@ -84,5 +94,5 @@ pkg_postinst() {
 
 pkg_postrm() {
 	gnome2_pkg_postrm
-	python_mod_cleanup awn
+	python_mod_cleanup  awn
 }

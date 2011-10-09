@@ -2,8 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI="3"
 EBZR_REPO_URI="lp:awn-extras"
+PYTHON_DEPEND="2:2.5"
 
 inherit autotools bzr eutils gnome2 python
 
@@ -72,6 +73,9 @@ RDEPEND="${COMMON_DEPEND}
 DOCS="AUTHORS README"
 
 pkg_setup() {
+	python_set_active_version 2
+	python_pkg_setup
+
 	if use gstreamer; then G2CONF="${G2CONF} --enable-sound=gstreamer"
 	else G2CONF="${G2CONF} --enable-sound=no"
 	fi
@@ -89,6 +93,7 @@ pkg_setup() {
 
 src_unpack() {
 	bzr_src_unpack
+	find ${S} -iname '*py' -exec sed -i 's,python$,python2,' {} \; || die
 }
 
 src_prepare() {
@@ -104,9 +109,14 @@ src_prepare() {
 	fi
 }
 
+src_install() {
+	gnome2_src_install
+	python_convert_shebangs -r 2 "${D}"
+}
+
 pkg_postinst() {
 	gnome2_pkg_postinst
-	python_mod_optimize $(python_get_sitedir)/awn/extras
+	python_mod_optimize awn/extras
 }
 
 pkg_postrm() {
