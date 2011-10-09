@@ -1,10 +1,10 @@
 # Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-vim/vim-latex/vim-latex-1.8.23.20110214.ebuild,v 1.1 2011/03/04 04:27:06 radhermit Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-vim/vim-latex/vim-latex-1.8.23.20110214.ebuild,v 1.4 2011/07/23 18:04:26 armin76 Exp $
 
 EAPI=3
 
-inherit vim-plugin versionator
+inherit vim-plugin versionator python
 
 MY_REV="1049-git089726a"
 MY_P="${PN}-$( replace_version_separator 3 - ).${MY_REV}"
@@ -17,7 +17,9 @@ LICENSE="vim"
 KEYWORDS="~alpha ~amd64 ~ia64 ~ppc ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux ~ppc-macos ~x86-macos ~sparc-solaris"
 IUSE="html"
 
-RDEPEND="virtual/latex-base"
+RDEPEND="virtual/latex-base
+app-editors/gvim[python]
+"
 
 S="${WORKDIR}/${MY_P}"
 
@@ -27,8 +29,8 @@ src_prepare() {
 	# The makefiles do weird stuff, including running the svn command
 	rm Makefile Makefile.in || die "rm Makefile Makefile.in failed"
 
-	# Patching my own keymaps:
-	epatch "${FILESDIR}/vim-latex-greek-IMAP.patch"
+	# own patch for some keymaps
+	epatch_user
 }
 
 src_install() {
@@ -47,6 +49,9 @@ src_install() {
 
 	# Use executable permissions (bug #352403)
 	fperms a+x /usr/share/vim/vimfiles/ftplugin/latex-suite/outline.py
+
+	# convert shebang to python2 since some codes does not run in python3
+	python_convert_shebangs -r 2 "${D}"
 }
 
 pkg_postinst() {
