@@ -12,7 +12,7 @@ SRC_URI="http://www.deviantart.com/download/173323228/faenza_icons_by_tiheum-d2v
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="amd64 x86"
-IUSE="minimal +emesene"
+IUSE="minimal emesene"
 
 RDEPEND="!minimal? ( x11-themes/gnome-icon-theme )
 	x11-themes/hicolor-icon-theme
